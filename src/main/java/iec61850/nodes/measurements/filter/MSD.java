@@ -12,7 +12,7 @@ import java.util.LinkedList;
  */
 public class MSD extends Filter {
 
-    private float samples = 80;
+    private float samples = 20;
     private Deque<Float> window = new LinkedList<>();
 
 
