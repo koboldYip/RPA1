@@ -22,29 +22,60 @@ public class LSVC extends LN {
 
     private List<SAV> signals = new ArrayList<>(); //Список считываемых из строки файла значений
     private List<String> cfgFile = new ArrayList<>(); //Считанный файл конфиг
+    private List<String> datFile = new ArrayList<>(); //Считанный файл dat
     private List<String> csvFile = new ArrayList<>(); //Считанный файл CSV
     private int numberOfSignals; //Количество аналоговых и дискретных значений
     private Iterator<String> iterator; //Итератор для перебора значений и последовательной обработки всеми узлами
+    private List<Float> aBuffer = new ArrayList<>();
+    private List<Float> bBuffer = new ArrayList<>();
 
     /**
      * Последовательное считывание значений из файла
      * И обертывание значений
      */
+
     @Override
     public void process() {
         if (iterator.hasNext()) {
             List<Float> values = Arrays.stream(iterator.next().split(","))
                     .map(Float::parseFloat)
                     .collect(Collectors.toList());
-            for (int i = 0; i < numberOfSignals; i++) {
-                signals.get(i)
+            for (int s = 0; s < numberOfSignals; s++) {
+                float value = aBuffer.isEmpty() ? values.get(s + 1) : values.get(s + 2) * aBuffer.get(s) + bBuffer.get(s);
+                signals.get(s)
                         .getInstMag()
                         .getF()
-                        .setValue(values.get(i + 1) * 1000);
+                        .setValue(value * 1000);
+            }
+        }
+    }
+
+    public void readComtrade(String cfgPath) {
+        cfgFile = readFile(cfgPath + ".cfg");
+        datFile = readFile(cfgPath + ".dat");
+
+        iterator = datFile.iterator();
+
+        int analogNumber = Integer.parseInt(cfgFile.get(1).split(",")[1].replace("A", ""));
+        int discreteNumber = Integer.parseInt(cfgFile.get(1).split(",")[2].replace("D", ""));
+        numberOfSignals = analogNumber + discreteNumber;
+
+        if (signals.size() < numberOfSignals) {
+            for (int i = 0; i < 100; i++) {
+                signals.add(new SAV());
             }
         }
 
+        for (int i = 2; i < (2 + analogNumber); i++) {
+            String line = cfgFile.get(i);
+            String[] lSplit = line.split(",");
+            aBuffer.add(Float.parseFloat(lSplit[5]));
+            bBuffer.add(Float.parseFloat(lSplit[6]));
+        }
+
+        System.out.printf("Осциллограмма загружена, количество сигналов: %s, количество выборок: %s %n%n", numberOfSignals, datFile.size());
     }
+
 
     /**
      * Полное считывание файлов конфиг и CSV

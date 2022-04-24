@@ -6,37 +6,37 @@ import iec61850.nodes.custom.LSVC;
 import iec61850.nodes.gui.NHMI;
 import iec61850.nodes.gui.other.NHMISignal;
 import iec61850.nodes.measurements.MMXU;
-import iec61850.nodes.protection.PIOC;
+import iec61850.nodes.protection.PTOC;
 
-public class Main {
+public class MainTO {
 
 
     public static void main(String[] args) {
         LSVC lsvc = new LSVC();
         NHMI nhmi = new NHMI();
         MMXU mmxu = new MMXU();
-        PIOC pioc1 = new PIOC();
-        PIOC pioc2 = new PIOC();
-        PIOC pioc3 = new PIOC();
+        PTOC PTOC1 = new PTOC();
+        PTOC PTOC2 = new PTOC();
+        PTOC PTOC3 = new PTOC();
         CSWI cswi = new CSWI();
         XCBR xcbr = new XCBR();
 
-        lsvc.readCSV("D:\\EAU_TEST\\Maga\\2sem\\alg\\RPA\\src\\main\\resources\\Опыты\\Конец линии\\PhABC20");
+        lsvc.readCSV("src/main/resources/1лаба/Опыты/Конец линии/PhABC20");
 
         mmxu.setiL1(lsvc.getSignals().get(0));
         mmxu.setiL2(lsvc.getSignals().get(1));
         mmxu.setiL3(lsvc.getSignals().get(2));
 
-        pioc1.setStrVal(3900f);
-        pioc2.setStrVal(3300f);
-        pioc3.setStrVal(533f);
-        pioc1.setA(mmxu.getA());
-        pioc2.setA(mmxu.getA());
-        pioc3.setA(mmxu.getA());
+        PTOC1.setStrVal(3900f);
+        PTOC2.setStrVal(3300f);
+        PTOC3.setStrVal(533f);
+        PTOC1.setA(mmxu.getA());
+        PTOC2.setA(mmxu.getA());
+        PTOC3.setA(mmxu.getA());
 
-        cswi.setOpOpn1(pioc1.getOp());
-        cswi.setOpOpn2(pioc2.getOp());
-        cswi.setOpOpn3(pioc3.getOp());
+        cswi.setOpOpn1(PTOC1.getOp());
+        cswi.setOpOpn2(PTOC2.getOp());
+        cswi.setOpOpn3(PTOC3.getOp());
         cswi.setStVal(xcbr.getPos());
 
         xcbr.setCtVal(cswi.getCtVal());
@@ -60,13 +60,13 @@ public class Main {
                 new NHMISignal("Ток l3 MSD", mmxu.getA().getPhsC().getcVal().getMag().getF())
         );
         nhmi.addSignals(
-                new NHMISignal("PIOC1", pioc1.getOp().getGeneral())
+                new NHMISignal("PIOC1", PTOC1.getOp().getGeneral())
         );
         nhmi.addSignals(
-                new NHMISignal("PIOC2", pioc2.getOp().getGeneral())
+                new NHMISignal("PIOC2", PTOC2.getOp().getGeneral())
         );
         nhmi.addSignals(
-                new NHMISignal("PIOC3", pioc3.getOp().getGeneral())
+                new NHMISignal("PIOC3", PTOC3.getOp().getGeneral())
         );
         nhmi.addSignals(
                 new NHMISignal("CSWI", cswi.getCtVal().getStVal())
@@ -74,14 +74,13 @@ public class Main {
         nhmi.addSignals(
                 new NHMISignal("XCBR", xcbr.getPos().getStVal())
         );
-        int i = 0;
         while (lsvc.hasNext()) {
             lsvc.process();
             nhmi.process();
             mmxu.process();
-            pioc1.process();
-            pioc2.process();
-            pioc3.process();
+            PTOC1.process();
+            PTOC2.process();
+            PTOC3.process();
             cswi.process();
             xcbr.process();
 
