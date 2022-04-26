@@ -16,8 +16,8 @@ public class Vector {
     public void setByOrt(float X, float Y) {
         getVectorX().getF().setValue(X);
         getVectorY().getF().setValue(Y);
-        getMag().getF().setValue((float) Math.sqrt(X * X + Y * Y));
-        getAng().getF().setValue((float) Math.toDegrees(Math.atan2(Y, X)));
+        mag.getF().setValue((float) Math.sqrt(X * X + Y * Y));
+        ang.getF().setValue((float) Math.toDegrees(Math.atan2(Y, X)));
     }
 
     public AnalogueValue getVectorX() {
@@ -40,8 +40,9 @@ public class Vector {
         return mag;
     }
 
-    public void setMag(AnalogueValue mag) {
-        this.mag = mag;
+    public void setMag(float magnitude) {
+        mag.getF().setValue(magnitude);
+        reOrt();
     }
 
     public AnalogueValue getAng() {

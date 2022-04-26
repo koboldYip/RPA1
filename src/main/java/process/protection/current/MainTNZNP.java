@@ -106,34 +106,29 @@ public class MainTNZNP {
 
         xcbr.setCtVal(cswi.getCtVal());
 
-
-//        nhmi.addSignals(
-//                new NHMISignal("Ток l1", lsvc.getSignals().get(3).getInstMag().getF())
-//        );
-//        nhmi.addSignals(
-//                new NHMISignal("Ток l2", lsvc.getSignals().get(4).getInstMag().getF())
-//        );
-//        nhmi.addSignals(
-//                new NHMISignal("Ток l3", lsvc.getSignals().get(5).getInstMag().getF())
-//        );
-
         nhmi.addSignals(
-                new NHMISignal("Ток C1 Mag", msqi.getSeqA().getC1().getcVal().getMag().getF())
+                new NHMISignal("Ток l1", lsvc.getSignals().get(3).getInstMag().getF())
         );
         nhmi.addSignals(
-                new NHMISignal("Ток C2 Mag", msqi.getSeqA().getC2().getcVal().getMag().getF())
+                new NHMISignal("Ток l2", lsvc.getSignals().get(4).getInstMag().getF())
+        );
+        nhmi.addSignals(
+                new NHMISignal("Ток l3", lsvc.getSignals().get(5).getInstMag().getF())
         );
         nhmi.addSignals(
                 new NHMISignal("Ток C3 Mag", msqi.getSeqA().getC3().getcVal().getMag().getF())
         );
-//        nhmi.addSignals(
-//                new NHMISignal("pusk", ptoc1.getPusk()),
-//                new NHMISignal("", ptoc2.getPusk()),
-//                new NHMISignal("", ptoc3.getPusk()),
-//                new NHMISignal("", ptoc4.getPusk()),
-//                new NHMISignal("", ptoc5.getPusk()),
-//                new NHMISignal("", ptoc6.getPusk())
-//        );
+        nhmi.addSignals(
+                new NHMISignal("Напряжение C3 Mag", msqi.getSeqV().getC3().getcVal().getMag().getF())
+        );
+        nhmi.addSignals(
+                new NHMISignal("pusk", ptoc1.getPusk()),
+                new NHMISignal("", ptoc2.getPusk()),
+                new NHMISignal("", ptoc3.getPusk()),
+                new NHMISignal("", ptoc4.getPusk()),
+                new NHMISignal("", ptoc5.getPusk()),
+                new NHMISignal("", ptoc6.getPusk())
+        );
         nhmi.addSignals(
                 new NHMISignal("PTOC1", ptoc1.getOp().getGeneral())
         );

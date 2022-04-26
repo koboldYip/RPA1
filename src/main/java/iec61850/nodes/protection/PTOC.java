@@ -75,7 +75,6 @@ public class PTOC extends LN {
             op.getPhsA().setValue(phsA);
             op.getPhsB().setValue(phsB);
             op.getPhsC().setValue(phsC);
-
         }
 
     }

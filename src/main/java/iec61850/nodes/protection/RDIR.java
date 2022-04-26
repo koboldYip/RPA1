@@ -35,7 +35,8 @@ public class RDIR extends LN {
             Dir.getDirPhsC().setValue(BACKWARD);
         }
 
-        if (Dir.getDirPhsA().getValue().ordinal() != 1 || Dir.getDirPhsB().getValue().ordinal() != 1 || Dir.getDirPhsC().getValue().ordinal() != 1) {
+        if (Dir.getDirPhsA().getValue().ordinal() != 1 || Dir.getDirPhsB().getValue().ordinal() != 1 ||
+                Dir.getDirPhsC().getValue().ordinal() != 1) {
             Dir.getDirGeneral().setValue(BACKWARD);
         }
 

@@ -33,7 +33,6 @@ public class LSVC extends LN {
      * Последовательное считывание значений из файла
      * И обертывание значений
      */
-
     @Override
     public void process() {
         if (iterator.hasNext()) {

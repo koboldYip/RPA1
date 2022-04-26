@@ -29,13 +29,11 @@ public class MSQI extends LN {
     }
 
     private void seq(WYE wye, SEQ seq) {
-        phA.setByOrt(
-                wye.getPhsA().getcVal().getVectorX().getF().getValue(),
-                wye.getPhsA().getcVal().getVectorY().getF().getValue());
-        phB.setMag(wye.getPhsB().getcVal().getMag());
+
+        phB.setMag(wye.getPhsB().getcVal().getMag().getF().getValue());
         phB.setAng(wye.getPhsB().getcVal().getAng().getF().getValue() + 120);
-        phC.setMag(wye.getPhsC().getcVal().getMag());
-        phC.setAng(wye.getPhsC().getcVal().getAng().getF().getValue() - 120);
+        phB.setMag(wye.getPhsC().getcVal().getMag().getF().getValue());
+        phB.setAng(wye.getPhsC().getcVal().getAng().getF().getValue() - 120);
 
         seq.getC1().getcVal().setByOrt(
                 (phA.getVectorX().getF().getValue() +
@@ -45,10 +43,10 @@ public class MSQI extends LN {
                         phB.getVectorY().getF().getValue() +
                         phC.getVectorY().getF().getValue()) / 3);
 
-        phB.setMag(wye.getPhsB().getcVal().getMag());
+        phB.setMag(wye.getPhsB().getcVal().getMag().getF().getValue());
         phB.setAng(wye.getPhsB().getcVal().getAng().getF().getValue() - 120);
-        phC.setMag(wye.getPhsC().getcVal().getMag());
-        phC.setAng(wye.getPhsC().getcVal().getAng().getF().getValue() + 120);
+        phB.setMag(wye.getPhsC().getcVal().getMag().getF().getValue());
+        phB.setAng(wye.getPhsC().getcVal().getAng().getF().getValue() + 120);
 
         seq.getC2().getcVal().setByOrt(
                 (phA.getVectorX().getF().getValue() +
@@ -58,21 +56,13 @@ public class MSQI extends LN {
                         phB.getVectorY().getF().getValue() +
                         phC.getVectorY().getF().getValue()) / 3);
 
-        phB.setByOrt(
-                wye.getPhsB().getcVal().getVectorX().getF().getValue(),
-                wye.getPhsB().getcVal().getVectorY().getF().getValue());
-        phC.setByOrt(
-                wye.getPhsC().getcVal().getVectorX().getF().getValue(),
-                wye.getPhsC().getcVal().getVectorY().getF().getValue());
-
-
         seq.getC3().getcVal().setByOrt(
-                (phA.getVectorX().getF().getValue() +
-                        phB.getVectorX().getF().getValue() +
-                        phC.getVectorX().getF().getValue()) / 3,
-                (phA.getVectorY().getF().getValue() +
-                        phB.getVectorY().getF().getValue() +
-                        phC.getVectorY().getF().getValue()) / 3);
+                (wye.getPhsA().getcVal().getVectorX().getF().getValue() +
+                        wye.getPhsB().getcVal().getVectorX().getF().getValue() +
+                        wye.getPhsC().getcVal().getVectorX().getF().getValue()) / 3,
+                (wye.getPhsA().getcVal().getVectorY().getF().getValue() +
+                        wye.getPhsB().getcVal().getVectorY().getF().getValue() +
+                        wye.getPhsC().getcVal().getVectorY().getF().getValue()) / 3);
 
     }
 
