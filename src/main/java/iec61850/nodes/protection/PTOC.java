@@ -38,24 +38,20 @@ public class PTOC extends LN {
             getOpDlTmms().getSetVal().setValue(10);
         }
 
-        if ((DirMod.getDir().getValue() != str.getDirPhsA().getValue() ||
-                DirMod.getDir().getValue() != str.getDirPhsB().getValue() ||
-                DirMod.getDir().getValue() != str.getDirPhsC().getValue()) &&
-                DirMod.getDir().getValue().ordinal() != 3) {
-            count = 0;
-        }
 
         boolean phsA = false;
         boolean phsB = false;
         boolean phsC = false;
 
         if (DirMod.getDir().getValue().ordinal() == 1) {
-            phsA = A.getPhsA().getcVal().getMag().getF().getValue() > StrVal.getSetMag().getF().getValue() &&
-                    DirMod.getDir().getValue() == str.getDirPhsA().getValue();
-            phsB = A.getPhsB().getcVal().getMag().getF().getValue() > StrVal.getSetMag().getF().getValue() &&
-                    DirMod.getDir().getValue() == str.getDirPhsB().getValue();
-            phsC = A.getPhsC().getcVal().getMag().getF().getValue() > StrVal.getSetMag().getF().getValue() &&
-                    DirMod.getDir().getValue() == str.getDirPhsC().getValue();
+            if (str.getDirGeneral().getValue().ordinal() == 1) {
+                phsA = A.getPhsA().getcVal().getMag().getF().getValue() > StrVal.getSetMag().getF().getValue() &&
+                        DirMod.getDir().getValue() == str.getDirPhsA().getValue();
+                phsB = A.getPhsB().getcVal().getMag().getF().getValue() > StrVal.getSetMag().getF().getValue() &&
+                        DirMod.getDir().getValue() == str.getDirPhsB().getValue();
+                phsC = A.getPhsC().getcVal().getMag().getF().getValue() > StrVal.getSetMag().getF().getValue() &&
+                        DirMod.getDir().getValue() == str.getDirPhsC().getValue();
+            }
         } else {
             phsA = A.getPhsA().getcVal().getMag().getF().getValue() > StrVal.getSetMag().getF().getValue();
             phsB = A.getPhsB().getcVal().getMag().getF().getValue() > StrVal.getSetMag().getF().getValue();

@@ -45,6 +45,8 @@ public class MainTNZNP {
         msqi.setV(mmxu.getPhV());
 
         rdir.setW(mmxu.getW());
+        rdir.setA(msqi.getSeqA());
+        rdir.setV(msqi.getSeqV());
 
         ptoc1.setStrVal(2250f);
 
@@ -57,10 +59,10 @@ public class MainTNZNP {
         ptoc4.setStrVal(2250f);
 
         ptoc5.setStrVal(1240f);
-        ptoc5.getOpDlTmms().getSetVal().setValue(30);
+        ptoc5.getOpDlTmms().getSetVal().setValue(60);
 
         ptoc6.setStrVal(43.75f);
-        ptoc6.getOpDlTmms().getSetVal().setValue(130);
+        ptoc6.getOpDlTmms().getSetVal().setValue(180);
 
         ptoc1.getDirMod().getDir().setValue(FORWARD);
         ptoc2.getDirMod().getDir().setValue(FORWARD);
@@ -120,6 +122,9 @@ public class MainTNZNP {
         );
         nhmi.addSignals(
                 new NHMISignal("Напряжение C3 Mag", msqi.getSeqV().getC3().getcVal().getMag().getF())
+        );
+        nhmi.addSignals(
+                new NHMISignal("W0", rdir.getW0())
         );
         nhmi.addSignals(
                 new NHMISignal("pusk", ptoc1.getPusk()),
