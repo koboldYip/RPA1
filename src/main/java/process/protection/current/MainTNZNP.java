@@ -6,9 +6,9 @@ import iec61850.nodes.custom.LSVC;
 import iec61850.nodes.gui.NHMI;
 import iec61850.nodes.gui.other.NHMISignal;
 import iec61850.nodes.measurements.MMXU;
-import iec61850.nodes.measurements.MSQI;
+//import iec61850.nodes.measurements.MSQI;
 import iec61850.nodes.protection.PTOC;
-import iec61850.nodes.protection.RDIR;
+//import iec61850.nodes.protection.RDIR;
 
 import static iec61850.objects.protection.dir.Direction.BOTH;
 import static iec61850.objects.protection.dir.Direction.FORWARD;
@@ -20,8 +20,8 @@ public class MainTNZNP {
         LSVC lsvc = new LSVC();
         NHMI nhmi = new NHMI();
         MMXU mmxu = new MMXU();
-        MSQI msqi = new MSQI();
-        RDIR rdir = new RDIR();
+//        MSQI msqi = new MSQI();
+//        RDIR rdir = new RDIR();
         PTOC ptoc1 = new PTOC();
         PTOC ptoc2 = new PTOC();
         PTOC ptoc3 = new PTOC();
@@ -41,12 +41,12 @@ public class MainTNZNP {
         mmxu.setiL2(lsvc.getSignals().get(4));
         mmxu.setiL3(lsvc.getSignals().get(5));
 
-        msqi.setA(mmxu.getA());
-        msqi.setV(mmxu.getPhV());
-
-        rdir.setW(mmxu.getW());
-        rdir.setA(msqi.getSeqA());
-        rdir.setV(msqi.getSeqV());
+//        msqi.setA(mmxu.getA());
+//        msqi.setV(mmxu.getPhV());
+//
+//        rdir.setW(mmxu.getW());
+//        rdir.setA(msqi.getSeqA());
+//        rdir.setV(msqi.getSeqV());
 
         ptoc1.setStrVal(2250f);
 
@@ -71,31 +71,31 @@ public class MainTNZNP {
         ptoc5.getDirMod().getDir().setValue(BOTH);
         ptoc6.getDirMod().getDir().setValue(BOTH);
 
-        ptoc1.getA().setPhsA(msqi.getSeqA().getC3());
-        ptoc1.getA().setPhsB(msqi.getSeqA().getC3());
-        ptoc1.getA().setPhsC(msqi.getSeqA().getC3());
-        ptoc2.getA().setPhsA(msqi.getSeqA().getC3());
-        ptoc2.getA().setPhsB(msqi.getSeqA().getC3());
-        ptoc2.getA().setPhsC(msqi.getSeqA().getC3());
-        ptoc3.getA().setPhsA(msqi.getSeqA().getC3());
-        ptoc3.getA().setPhsB(msqi.getSeqA().getC3());
-        ptoc3.getA().setPhsC(msqi.getSeqA().getC3());
-        ptoc4.getA().setPhsA(msqi.getSeqA().getC3());
-        ptoc4.getA().setPhsB(msqi.getSeqA().getC3());
-        ptoc4.getA().setPhsC(msqi.getSeqA().getC3());
-        ptoc5.getA().setPhsA(msqi.getSeqA().getC3());
-        ptoc5.getA().setPhsB(msqi.getSeqA().getC3());
-        ptoc5.getA().setPhsC(msqi.getSeqA().getC3());
-        ptoc6.getA().setPhsA(msqi.getSeqA().getC3());
-        ptoc6.getA().setPhsB(msqi.getSeqA().getC3());
-        ptoc6.getA().setPhsC(msqi.getSeqA().getC3());
-
-        ptoc1.setStr(rdir.getDir());
-        ptoc2.setStr(rdir.getDir());
-        ptoc3.setStr(rdir.getDir());
-        ptoc4.setStr(rdir.getDir());
-        ptoc5.setStr(rdir.getDir());
-        ptoc6.setStr(rdir.getDir());
+//        ptoc1.getA().setPhsA(msqi.getSeqA().getC3());
+//        ptoc1.getA().setPhsB(msqi.getSeqA().getC3());
+//        ptoc1.getA().setPhsC(msqi.getSeqA().getC3());
+//        ptoc2.getA().setPhsA(msqi.getSeqA().getC3());
+//        ptoc2.getA().setPhsB(msqi.getSeqA().getC3());
+//        ptoc2.getA().setPhsC(msqi.getSeqA().getC3());
+//        ptoc3.getA().setPhsA(msqi.getSeqA().getC3());
+//        ptoc3.getA().setPhsB(msqi.getSeqA().getC3());
+//        ptoc3.getA().setPhsC(msqi.getSeqA().getC3());
+//        ptoc4.getA().setPhsA(msqi.getSeqA().getC3());
+//        ptoc4.getA().setPhsB(msqi.getSeqA().getC3());
+//        ptoc4.getA().setPhsC(msqi.getSeqA().getC3());
+//        ptoc5.getA().setPhsA(msqi.getSeqA().getC3());
+//        ptoc5.getA().setPhsB(msqi.getSeqA().getC3());
+//        ptoc5.getA().setPhsC(msqi.getSeqA().getC3());
+//        ptoc6.getA().setPhsA(msqi.getSeqA().getC3());
+//        ptoc6.getA().setPhsB(msqi.getSeqA().getC3());
+//        ptoc6.getA().setPhsC(msqi.getSeqA().getC3());
+//
+//        ptoc1.setStr(rdir.getDir());
+//        ptoc2.setStr(rdir.getDir());
+//        ptoc3.setStr(rdir.getDir());
+//        ptoc4.setStr(rdir.getDir());
+//        ptoc5.setStr(rdir.getDir());
+//        ptoc6.setStr(rdir.getDir());
 
         cswi.setOpOpn1(ptoc1.getOp());
         cswi.setOpOpn2(ptoc2.getOp());
@@ -118,13 +118,13 @@ public class MainTNZNP {
                 new NHMISignal("Ток l3", lsvc.getSignals().get(5).getInstMag().getF())
         );
         nhmi.addSignals(
-                new NHMISignal("Ток C3 Mag", msqi.getSeqA().getC3().getcVal().getMag().getF())
-        );
-        nhmi.addSignals(
-                new NHMISignal("Напряжение C3 Mag", msqi.getSeqV().getC3().getcVal().getMag().getF())
-        );
-        nhmi.addSignals(
-                new NHMISignal("W0", rdir.getW0())
+//                new NHMISignal("Ток C3 Mag", msqi.getSeqA().getC3().getcVal().getMag().getF())
+//        );
+//        nhmi.addSignals(
+//                new NHMISignal("Напряжение C3 Mag", msqi.getSeqV().getC3().getcVal().getMag().getF())
+//        );
+//        nhmi.addSignals(
+//                new NHMISignal("W0", rdir.getW0())
         );
         nhmi.addSignals(
                 new NHMISignal("pusk", ptoc1.getPusk()),
@@ -163,8 +163,8 @@ public class MainTNZNP {
             lsvc.process();
             nhmi.process();
             mmxu.process();
-            msqi.process();
-            rdir.process();
+//            msqi.process();
+//            rdir.process();
             ptoc1.process();
             ptoc2.process();
             ptoc3.process();

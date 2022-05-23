@@ -2,7 +2,7 @@ package iec61850.nodes.protection;
 
 import iec61850.nodes.common.LN;
 import iec61850.objects.control.SPS;
-import iec61850.objects.measurements.WYE;
+import iec61850.objects.measurements.DEL;
 import iec61850.objects.protection.ASG;
 import iec61850.objects.protection.ING;
 
@@ -16,49 +16,49 @@ public class RPSB extends LN {
     private SPS BlkZn = new SPS();
     private ING UnBlkTmms = new ING(0);
 
-    private WYE Z = new WYE();
+    private DEL Z = new DEL();
 
     private int count = 0;
     private float samples = 10;
-    private Deque<Float> windowAX = new LinkedList<>();
-    private Deque<Float> windowBX = new LinkedList<>();
-    private Deque<Float> windowCX = new LinkedList<>();
-    private Deque<Float> windowAY = new LinkedList<>();
-    private Deque<Float> windowBY = new LinkedList<>();
-    private Deque<Float> windowCY = new LinkedList<>();
+    private Deque<Float> windowABX = new LinkedList<>();
+    private Deque<Float> windowBCX = new LinkedList<>();
+    private Deque<Float> windowCAX = new LinkedList<>();
+    private Deque<Float> windowABY = new LinkedList<>();
+    private Deque<Float> windowBCY = new LinkedList<>();
+    private Deque<Float> windowCAY = new LinkedList<>();
 
     @Override
     public void process() {
 
 
-        if (windowAX.size() <= samples) {
-            windowAX.addLast(Z.getPhsA().getcVal().getVectorX().getF().getValue());
-            windowBX.addLast(Z.getPhsB().getcVal().getVectorX().getF().getValue());
-            windowCX.addLast(Z.getPhsC().getcVal().getVectorX().getF().getValue());
-            windowAY.addLast(Z.getPhsA().getcVal().getVectorY().getF().getValue());
-            windowBY.addLast(Z.getPhsB().getcVal().getVectorY().getF().getValue());
-            windowCY.addLast(Z.getPhsC().getcVal().getVectorY().getF().getValue());
+        if (windowABX.size() <= samples) {
+            windowABX.addLast(Z.getPhsAB().getcVal().getVectorX().getF().getValue());
+            windowBCX.addLast(Z.getPhsBC().getcVal().getVectorX().getF().getValue());
+            windowCAX.addLast(Z.getPhsCA().getcVal().getVectorX().getF().getValue());
+            windowABY.addLast(Z.getPhsAB().getcVal().getVectorY().getF().getValue());
+            windowBCY.addLast(Z.getPhsBC().getcVal().getVectorY().getF().getValue());
+            windowCAY.addLast(Z.getPhsCA().getcVal().getVectorY().getF().getValue());
         } else {
-            windowAX.addLast(Z.getPhsA().getcVal().getVectorX().getF().getValue());
-            windowAX.removeFirst();
-            windowBX.addLast(Z.getPhsB().getcVal().getVectorX().getF().getValue());
-            windowBX.removeFirst();
-            windowCX.addLast(Z.getPhsC().getcVal().getVectorX().getF().getValue());
-            windowCX.removeFirst();
-            windowAY.addLast(Z.getPhsA().getcVal().getVectorY().getF().getValue());
-            windowAY.removeFirst();
-            windowBY.addLast(Z.getPhsB().getcVal().getVectorY().getF().getValue());
-            windowBY.removeFirst();
-            windowCY.addLast(Z.getPhsC().getcVal().getVectorY().getF().getValue());
-            windowCY.removeFirst();
+            windowABX.addLast(Z.getPhsAB().getcVal().getVectorX().getF().getValue());
+            windowABX.removeFirst();
+            windowBCX.addLast(Z.getPhsBC().getcVal().getVectorX().getF().getValue());
+            windowBCX.removeFirst();
+            windowCAX.addLast(Z.getPhsCA().getcVal().getVectorX().getF().getValue());
+            windowCAX.removeFirst();
+            windowABY.addLast(Z.getPhsAB().getcVal().getVectorY().getF().getValue());
+            windowABY.removeFirst();
+            windowBCY.addLast(Z.getPhsBC().getcVal().getVectorY().getF().getValue());
+            windowBCY.removeFirst();
+            windowCAY.addLast(Z.getPhsCA().getcVal().getVectorY().getF().getValue());
+            windowCAY.removeFirst();
         }
         if (BlkZn.getStVal().getValue()) {
-            if ((Math.abs((windowAX.getLast() - windowAX.getFirst()) / 2500) > .0001f) ||
-                    (Math.abs((windowBX.getLast() - windowBX.getFirst()) / 2500) > .0001f) ||
-                    (Math.abs((windowCX.getLast() - windowCX.getFirst()) / 2500) > .0001f) ||
-                    (Math.abs((windowAY.getLast() - windowAY.getFirst()) / 2500) > .0001f) ||
-                    (Math.abs((windowBY.getLast() - windowBY.getFirst()) / 2500) > .0001f) ||
-                    (Math.abs((windowCY.getLast() - windowCY.getFirst()) / 2500) > .0001f)) {
+            if ((Math.abs((windowABX.getLast() - windowABX.getFirst()) / 2500) > .0001f) ||
+                    (Math.abs((windowBCX.getLast() - windowBCX.getFirst()) / 2500) > .0001f) ||
+                    (Math.abs((windowCAX.getLast() - windowCAX.getFirst()) / 2500) > .0001f) ||
+                    (Math.abs((windowABY.getLast() - windowABY.getFirst()) / 2500) > .0001f) ||
+                    (Math.abs((windowBCY.getLast() - windowBCY.getFirst()) / 2500) > .0001f) ||
+                    (Math.abs((windowCAY.getLast() - windowCAY.getFirst()) / 2500) > .0001f)) {
                 BlkZn.getStVal().setValue(false);
             }
         }
@@ -101,11 +101,11 @@ public class RPSB extends LN {
         UnBlkTmms = unBlkTmms;
     }
 
-    public WYE getZ() {
+    public DEL getZ() {
         return Z;
     }
 
-    public void setZ(WYE z) {
+    public void setZ(DEL z) {
         Z = z;
     }
 }

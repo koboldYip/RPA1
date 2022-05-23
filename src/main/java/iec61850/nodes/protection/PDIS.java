@@ -2,7 +2,7 @@ package iec61850.nodes.protection;
 
 import iec61850.nodes.common.LN;
 import iec61850.objects.control.SPS;
-import iec61850.objects.measurements.WYE;
+import iec61850.objects.measurements.DEL;
 import iec61850.objects.protection.ACD;
 import iec61850.objects.protection.ACT;
 import iec61850.objects.protection.ASG;
@@ -10,7 +10,7 @@ import iec61850.objects.protection.ING;
 
 public class PDIS extends LN {
 
-    private WYE Z = new WYE();
+    private DEL Z = new DEL();
     private ACT op = new ACT();
     private ACD str = new ACD();
 
@@ -26,17 +26,17 @@ public class PDIS extends LN {
     public void process() {
 
         if (!Blk.getStVal().getValue()) {
-            boolean phsA = Math.pow(Z.getPhsA().getcVal().getVectorX().getF().getValue() - R0, 2) +
-                    Math.pow(Z.getPhsA().getcVal().getVectorY().getF().getValue() - X0, 2) <=
+            boolean phsAB = Math.pow(Z.getPhsAB().getcVal().getVectorX().getF().getValue() - R0, 2) +
+                    Math.pow(Z.getPhsAB().getcVal().getVectorY().getF().getValue() - X0, 2) <=
                     Math.pow(PhStr.getSetMag().getF().getValue(), 2);
-            boolean phsB = Math.pow(Z.getPhsB().getcVal().getVectorX().getF().getValue() - R0, 2) +
-                    Math.pow(Z.getPhsB().getcVal().getVectorY().getF().getValue() - X0, 2) <=
+            boolean phsBC = Math.pow(Z.getPhsBC().getcVal().getVectorX().getF().getValue() - R0, 2) +
+                    Math.pow(Z.getPhsBC().getcVal().getVectorY().getF().getValue() - X0, 2) <=
                     Math.pow(PhStr.getSetMag().getF().getValue(), 2);
-            boolean phsC = Math.pow(Z.getPhsC().getcVal().getVectorX().getF().getValue() - R0, 2) +
-                    Math.pow(Z.getPhsC().getcVal().getVectorY().getF().getValue() - X0, 2) <=
+            boolean phsCA = Math.pow(Z.getPhsCA().getcVal().getVectorX().getF().getValue() - R0, 2) +
+                    Math.pow(Z.getPhsCA().getcVal().getVectorY().getF().getValue() - X0, 2) <=
                     Math.pow(PhStr.getSetMag().getF().getValue(), 2);
 
-            if (phsA || phsB || phsC) {
+            if (phsAB || phsBC || phsCA) {
                 count++;
             } else {
                 count = 0;
@@ -44,19 +44,19 @@ public class PDIS extends LN {
 
             if (count >= OpDlTmms.getSetVal().getValue()) {
                 op.getGeneral().setValue(true);
-                op.getPhsA().setValue(phsA);
-                op.getPhsB().setValue(phsB);
-                op.getPhsC().setValue(phsC);
+                op.getPhsA().setValue(phsAB);
+                op.getPhsB().setValue(phsBC);
+                op.getPhsC().setValue(phsCA);
             }
         }
 
     }
 
-    public WYE getZ() {
+    public DEL getZ() {
         return Z;
     }
 
-    public void setZ(WYE z) {
+    public void setZ(DEL z) {
         Z = z;
     }
 

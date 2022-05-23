@@ -31,8 +31,6 @@ public class MainDZ {
         PDIS pdis2 = new PDIS();
         PDIS pdis3 = new PDIS();
         PDIS pdis4 = new PDIS();
-        PDIS pdis5 = new PDIS();
-        PDIS pdis6 = new PDIS();
         CSWI cswi = new CSWI();
         XCBR xcbr = new XCBR();
 
@@ -45,12 +43,10 @@ public class MainDZ {
         Nodes.add(pdis2);
         Nodes.add(pdis3);
         Nodes.add(pdis4);
-        Nodes.add(pdis5);
-        Nodes.add(pdis6);
         Nodes.add(cswi);
         Nodes.add(xcbr);
 
-        lsvc.readComtrade("src/main/resources/2лаба/Опыты/KZ1");
+        lsvc.readComtrade("src/main/resources/2лаба/Опыты/KZ5");
 
         mmxu.setvL1(lsvc.getSignals().get(0));
         mmxu.setvL2(lsvc.getSignals().get(1));
@@ -66,8 +62,6 @@ public class MainDZ {
         pdis2.setBlk(rpsb.getBlkZn());
         pdis3.setBlk(rpsb.getBlkZn());
         pdis4.setBlk(rpsb.getBlkZn());
-        pdis5.setBlk(rpsb.getBlkZn());
-        pdis6.setBlk(rpsb.getBlkZn());
 
         pdis1.setZ(mmxu.getZ());
         pdis1.getOpDlTmms().getSetVal().setValue(15);
@@ -93,34 +87,21 @@ public class MainDZ {
         pdis4.setR0(0);
         pdis4.setX0(0);
 
-        pdis5.setZ(mmxu.getZ());
-        pdis5.getOpDlTmms().getSetVal().setValue(200);
-        pdis5.getPhStr().getSetMag().getF().setValue(145f);
-        pdis5.setR0(0);
-        pdis5.setX0(0);
-
-        pdis6.setZ(mmxu.getZ());
-        pdis6.getOpDlTmms().getSetVal().setValue(230);
-        pdis6.getPhStr().getSetMag().getF().setValue(181f);
-        pdis6.setR0(0);
-        pdis6.setX0(0);
 
         cswi.setOpOpn1(pdis1.getOp());
         cswi.setOpOpn2(pdis2.getOp());
         cswi.setOpOpn3(pdis3.getOp());
         cswi.setOpOpn4(pdis4.getOp());
-        cswi.setOpOpn5(pdis5.getOp());
-        cswi.setOpOpn6(pdis6.getOp());
         cswi.setStVal(xcbr.getPos());
 
         xcbr.setCtVal(cswi.getCtVal());
 
-        nhmip.addSignals(new NHMISignal("Za", mmxu.getZ().getPhsA().getcVal().getVectorX().getF(),
-                        mmxu.getZ().getPhsA().getcVal().getVectorY().getF()),
-                new NHMISignal("Zb", mmxu.getZ().getPhsB().getcVal().getVectorX().getF(),
-                        mmxu.getZ().getPhsB().getcVal().getVectorY().getF()),
-                new NHMISignal("Zc", mmxu.getZ().getPhsC().getcVal().getVectorX().getF(),
-                        mmxu.getZ().getPhsC().getcVal().getVectorY().getF()));
+        nhmip.addSignals(new NHMISignal("Za", mmxu.getZ().getPhsAB().getcVal().getVectorX().getF(),
+                        mmxu.getZ().getPhsAB().getcVal().getVectorY().getF()),
+                new NHMISignal("Zb", mmxu.getZ().getPhsBC().getcVal().getVectorX().getF(),
+                        mmxu.getZ().getPhsBC().getcVal().getVectorY().getF()),
+                new NHMISignal("Zc", mmxu.getZ().getPhsCA().getcVal().getVectorX().getF(),
+                        mmxu.getZ().getPhsCA().getcVal().getVectorY().getF()));
 
         nhmip.drawCharacteristic("Characteristic", getNhmiPoints(25, 25, 36));
         nhmip.drawCharacteristic("Characteristic", getNhmiPoints(31, 31, 45));
