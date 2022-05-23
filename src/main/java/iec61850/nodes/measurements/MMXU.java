@@ -24,6 +24,7 @@ public class MMXU extends LN {
     private WYE A = new WYE();
     private WYE PhV = new WYE();
     private WYE W = new WYE();
+    private WYE Z = new WYE();
 
     private Filter ia = new Fourier();
     private Filter ib = new Fourier();
@@ -57,6 +58,30 @@ public class MMXU extends LN {
                         PhV.getPhsC().getcVal().getMag().getF().getValue() *
                         (Math.cos(Math.toRadians(PhV.getPhsC().getcVal().getAng().getF().getValue() -
                                 A.getPhsC().getcVal().getAng().getF().getValue())))));
+
+        Z.getPhsA().getcVal().setByMagAndAngle(PhV.getPhsA().getcVal().getMag().getF().getValue() /
+                        A.getPhsA().getcVal().getMag().getF().getValue(),
+                PhV.getPhsA().getcVal().getAng().getF().getValue() -
+                        A.getPhsA().getcVal().getAng().getF().getValue());
+
+        Z.getPhsB().getcVal().setByMagAndAngle(PhV.getPhsB().getcVal().getMag().getF().getValue() /
+                        A.getPhsB().getcVal().getMag().getF().getValue(),
+                PhV.getPhsB().getcVal().getAng().getF().getValue() -
+                        A.getPhsB().getcVal().getAng().getF().getValue());
+
+        Z.getPhsC().getcVal().setByMagAndAngle(PhV.getPhsC().getcVal().getMag().getF().getValue() /
+                        A.getPhsC().getcVal().getMag().getF().getValue(),
+                PhV.getPhsC().getcVal().getAng().getF().getValue() -
+                        A.getPhsC().getcVal().getAng().getF().getValue());
+
+    }
+
+    public WYE getZ() {
+        return Z;
+    }
+
+    public void setZ(WYE z) {
+        Z = z;
     }
 
     public WYE getW() {

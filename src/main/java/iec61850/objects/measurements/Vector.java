@@ -20,6 +20,13 @@ public class Vector {
         ang.getF().setValue((float) Math.toDegrees(Math.atan2(Y, X)));
     }
 
+    public void setByMagAndAngle(float Mag, float Angle) {
+        mag.getF().setValue(Mag);
+        ang.getF().setValue(Angle);
+        vectorX.getF().setValue((float) (mag.getF().getValue() * Math.cos(Math.toRadians(ang.getF().getValue()))));
+        vectorY.getF().setValue((float) (mag.getF().getValue() * Math.sin(Math.toRadians(ang.getF().getValue()))));
+    }
+
     public AnalogueValue getVectorX() {
         return vectorX;
     }
