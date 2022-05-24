@@ -1,14 +1,10 @@
 package iec61850.objects.measurements;
 
-import iec61850.objects.measurements.Seqenum.SeqT;
-
 public class SEQ {
 
     private CMV c1 = new CMV();
     private CMV c2 = new CMV();
     private CMV c3 = new CMV();
-
-    private SeqT seqT;
 
     public CMV getC1() {
         return c1;
@@ -34,11 +30,4 @@ public class SEQ {
         this.c3 = c3;
     }
 
-    public SeqT getSeqT() {
-        return seqT;
-    }
-
-    public void setSeqT(SeqT seqT) {
-        this.seqT = seqT;
-    }
 }
