@@ -23,7 +23,7 @@ public class XCBR extends LN {
     private SPC BlkCls = new SPC();
     private DPC ctVal = new DPC();
 
-    public int count = 30;
+    public int count = 15;
     public int i = 0;
 
     @Override

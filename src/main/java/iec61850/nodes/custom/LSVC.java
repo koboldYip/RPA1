@@ -56,8 +56,7 @@ public class LSVC extends LN {
         iterator = datFile.iterator();
 
         int analogNumber = Integer.parseInt(cfgFile.get(1).split(",")[1].replace("A", ""));
-        int discreteNumber = Integer.parseInt(cfgFile.get(1).split(",")[2].replace("D", ""));
-        numberOfSignals = analogNumber + discreteNumber;
+        numberOfSignals = analogNumber;
 
         if (signals.size() < numberOfSignals) {
             for (int i = 0; i < 100; i++) {
