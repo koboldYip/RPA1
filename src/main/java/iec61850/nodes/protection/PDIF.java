@@ -43,16 +43,25 @@ public class PDIF extends LN {
 
         Blk.getStVal().setValue(Harmonic.stream()
                 .flatMap(hwye -> hwye.getHar().stream())
-                .anyMatch(a -> a.get(harmonicBlock).getcVal().getMag().getF().getValue() /
-                        a.get(0).getcVal().getMag().getF().getValue() > 0.1));
-
+                .anyMatch(a ->
+                        a.get(harmonicBlock).getcVal().getMag().getF().getValue() /
+                                a.get(0).getcVal().getMag().getF().getValue() > 0.15));
 
         if (!Blk.getStVal().getValue()) {
-            if (RstA.phases().stream().anyMatch(phs -> phs.getcVal().getMag().getF().getValue() > Rst)) {
-                general = DifAClc.phases().stream().anyMatch(cmv -> cmv.getcVal().getMag().getF().getValue() >
-                        k * RstA.getPhsA().getcVal().getMag().getF().getValue() + m);
+            if (RstA.phases()
+                    .stream()
+                    .anyMatch(phs ->
+                            phs.getcVal().getMag().getF().getValue() > Rst)) {
+                general = DifAClc.phases()
+                        .stream()
+                        .anyMatch(cmv ->
+                                cmv.getcVal().getMag().getF().getValue() >
+                                        k * RstA.getPhsA().getcVal().getMag().getF().getValue() + m);
             } else {
-                general = DifAClc.phases().stream().anyMatch(cmv -> cmv.getcVal().getMag().getF().getValue() > D0);
+                general = DifAClc.phases()
+                        .stream()
+                        .anyMatch(cmv ->
+                                cmv.getcVal().getMag().getF().getValue() > D0);
             }
         }
 
