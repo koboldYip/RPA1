@@ -8,6 +8,7 @@ import iec61850.nodes.gui.other.NHMISignal;
 import iec61850.nodes.measurements.MHAI;
 import iec61850.nodes.measurements.MMXU;
 import iec61850.nodes.protection.PDIF;
+import iec61850.nodes.protection.PTOC;
 import iec61850.nodes.protection.RMXU;
 
 public class MainDZB {
@@ -26,10 +27,11 @@ public class MainDZB {
         MHAI mhai4 = new MHAI(10);
         RMXU rmxu = new RMXU();
         PDIF pdif = new PDIF();
+        PTOC ptoc = new PTOC();
         CSWI cswi = new CSWI();
         XCBR xcbr = new XCBR();
 
-        lsvc.readComtrade("src/main/resources/4лаба/Опыты/Опыты/DPB/4 sections/Vkl");
+        lsvc.readComtrade("src/main/resources/4лаба/Опыты/Опыты/DPB/4 sections/KzBC");
 
         mmxu1.setiL1(lsvc.getSignals().get(0));
         mmxu1.setiL2(lsvc.getSignals().get(1));
@@ -68,19 +70,24 @@ public class MainDZB {
         rmxu.setA3(mmxu3.getA());
         rmxu.setA4(mmxu4.getA());
 
+        ptoc.setStrVal(8000f);
+        ptoc.setA(rmxu.getALoc());
+
         pdif.setDifAClc(rmxu.getALoc());
         pdif.getHarmonic().add(mhai1.getHA());
         pdif.getHarmonic().add(mhai2.getHA());
         pdif.getHarmonic().add(mhai3.getHA());
         pdif.getHarmonic().add(mhai4.getHA());
         pdif.setRstA(rmxu.getRstA());
-        pdif.setRst(300);
-        pdif.setD0(660);
+
+        pdif.setRst(525);
+        pdif.setD0(490);
         pdif.setK(0.4);
-        pdif.setM(1000);
+        pdif.setM(400);
         pdif.setHarmonicBlock(4);
 
         cswi.setOpOpn1(pdif.getOp());
+        cswi.setOpOpn2(ptoc.getOp());
         cswi.setStVal(xcbr.getPos());
 
         xcbr.setCtVal(cswi.getCtVal());
@@ -128,6 +135,7 @@ public class MainDZB {
             mhai4.process();
             rmxu.process();
             pdif.process();
+            ptoc.process();
             cswi.process();
             xcbr.process();
         }

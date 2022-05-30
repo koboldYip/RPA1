@@ -1,6 +1,7 @@
 package iec61850.objects.measurements;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class HWYE {
@@ -31,5 +32,9 @@ public class HWYE {
 
     public void setPhsCHar(List<CMV> phsCHar) {
         this.phsCHar = phsCHar;
+    }
+
+    public List<List<CMV>> getHar() {
+        return new ArrayList<>(Arrays.asList(phsAHar, phsBHar, phsCHar));
     }
 }

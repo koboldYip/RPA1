@@ -26,7 +26,6 @@ public class PDIF extends LN {
     private SPS Blk = new SPS();
     private List<HWYE> Harmonic = new ArrayList<>();
 
-    private int countBlk = 0;
     private int count = 0;
 
     private int harmonicBlock = 0;
@@ -45,17 +44,10 @@ public class PDIF extends LN {
 
         Blk.getStVal().setValue(false);
 
-        for (HWYE HarmonicWYE : Harmonic) {
-            if (HarmonicWYE.getPhsAHar().get(harmonicBlock).getcVal().getMag().getF().getValue() /
-                    HarmonicWYE.getPhsAHar().get(0).getcVal().getMag().getF().getValue() > 0.1 ||
-                    HarmonicWYE.getPhsBHar().get(harmonicBlock).getcVal().getMag().getF().getValue() /
-                            HarmonicWYE.getPhsBHar().get(0).getcVal().getMag().getF().getValue() > 0.1 ||
-                    HarmonicWYE.getPhsCHar().get(harmonicBlock).getcVal().getMag().getF().getValue() /
-                            HarmonicWYE.getPhsCHar().get(0).getcVal().getMag().getF().getValue() > 0.1) {
-                Blk.getStVal().setValue(true);
-                break;
-            }
-        }
+        Blk.getStVal().setValue(Harmonic.stream().flatMap(hwye -> hwye.getHar().stream())
+                .anyMatch(a -> a.get(harmonicBlock).getcVal().getMag().getF().getValue() /
+                        a.get(0).getcVal().getMag().getF().getValue() > 0.1));
+
 
         if (!Blk.getStVal().getValue()) {
             if (RstA.getPhsA().getcVal().getMag().getF().getValue() > Rst ||
