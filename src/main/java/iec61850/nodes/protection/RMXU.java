@@ -46,17 +46,20 @@ public class RMXU extends LN {
         RstA.getPhsA().getcVal().setMag(a.stream()
                 .map(WYE::getPhsA)
                 .map(CMV::getMag)
+                .map(aFloat -> aFloat / 2)
                 .reduce(0f, Float::sum));
 
 
         RstA.getPhsB().getcVal().setMag(a.stream()
                 .map(WYE::getPhsB)
                 .map(CMV::getMag)
+                .map(aFloat -> aFloat / 2)
                 .reduce(0f, Float::sum));
 
         RstA.getPhsC().getcVal().setMag(a.stream()
                 .map(WYE::getPhsC)
                 .map(CMV::getMag)
+                .map(aFloat -> aFloat / 2)
                 .reduce(0f, Float::sum));
 
 
