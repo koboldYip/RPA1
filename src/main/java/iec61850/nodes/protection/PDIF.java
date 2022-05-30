@@ -38,38 +38,26 @@ public class PDIF extends LN {
     @Override
     public void process() {
         boolean general = false;
-        boolean phsA = false;
-        boolean phsB = false;
-        boolean phsC = false;
 
         Blk.getStVal().setValue(false);
 
-        Blk.getStVal().setValue(Harmonic.stream().flatMap(hwye -> hwye.getHar().stream())
+        Blk.getStVal().setValue(Harmonic.stream()
+                .flatMap(hwye -> hwye.getHar().stream())
                 .anyMatch(a -> a.get(harmonicBlock).getcVal().getMag().getF().getValue() /
                         a.get(0).getcVal().getMag().getF().getValue() > 0.1));
 
 
         if (!Blk.getStVal().getValue()) {
-            if (RstA.getPhsA().getcVal().getMag().getF().getValue() > Rst ||
-                    RstA.getPhsB().getcVal().getMag().getF().getValue() > Rst ||
-                    RstA.getPhsC().getcVal().getMag().getF().getValue() > Rst) {
-                phsA = DifAClc.getPhsA().getcVal().getMag().getF().getValue() > k * RstA.getPhsA().getcVal().getMag().getF().getValue() + m;
-                phsB = DifAClc.getPhsB().getcVal().getMag().getF().getValue() > k * RstA.getPhsB().getcVal().getMag().getF().getValue() + m;
-                phsC = DifAClc.getPhsC().getcVal().getMag().getF().getValue() > k * RstA.getPhsC().getcVal().getMag().getF().getValue() + m;
+            if (RstA.phases().stream().anyMatch(phs -> phs.getcVal().getMag().getF().getValue() > Rst)) {
+                general = DifAClc.phases().stream().anyMatch(cmv -> cmv.getcVal().getMag().getF().getValue() >
+                        k * RstA.getPhsA().getcVal().getMag().getF().getValue() + m);
             } else {
-                phsA = DifAClc.getPhsA().getcVal().getMag().getF().getValue() > D0;
-                phsB = DifAClc.getPhsB().getcVal().getMag().getF().getValue() > D0;
-                phsC = DifAClc.getPhsC().getcVal().getMag().getF().getValue() > D0;
+                general = DifAClc.phases().stream().anyMatch(cmv -> cmv.getcVal().getMag().getF().getValue() > D0);
             }
         }
 
-        general = phsA || phsB || phsC;
-
         if (general && ++count >= MaxOpTmms.getSetVal().getValue()) {
             op.getGeneral().setValue(general);
-            op.getPhsA().setValue(phsA);
-            op.getPhsB().setValue(phsB);
-            op.getPhsC().setValue(phsC);
             count = 0;
         }
 

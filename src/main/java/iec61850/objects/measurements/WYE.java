@@ -1,5 +1,9 @@
 package iec61850.objects.measurements;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Класс общих данных трехфазной сети
  */
@@ -31,5 +35,9 @@ public class WYE {
 
     public void setPhsC(CMV phsC) {
         this.phsC = phsC;
+    }
+
+    public List<CMV> phases() {
+        return new ArrayList<>(Arrays.asList(phsA, phsB, phsC));
     }
 }
