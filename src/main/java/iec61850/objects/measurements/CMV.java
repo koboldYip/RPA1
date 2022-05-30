@@ -24,4 +24,15 @@ public class CMV {
         this.cVal = cVal;
     }
 
+    public Float getOrtX() {
+        return cVal.getVectorX().getF().getValue();
+    }
+
+    public Float getOrtY() {
+        return cVal.getVectorY().getF().getValue();
+    }
+
+    public Float getMag() {
+        return cVal.getMag().getF().getValue();
+    }
 }

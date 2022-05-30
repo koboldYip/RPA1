@@ -65,10 +65,10 @@ public class MainDZB {
         mhai4.setiL2(lsvc.getSignals().get(10));
         mhai4.setiL3(lsvc.getSignals().get(11));
 
-        rmxu.setA1(mmxu1.getA());
-        rmxu.setA2(mmxu2.getA());
-        rmxu.setA3(mmxu3.getA());
-        rmxu.setA4(mmxu4.getA());
+        rmxu.getA().add(mmxu1.getA());
+        rmxu.getA().add(mmxu2.getA());
+        rmxu.getA().add(mmxu3.getA());
+        rmxu.getA().add(mmxu4.getA());
 
         ptoc.setStrVal(8000f);
         ptoc.setA(rmxu.getALoc());
